@@ -1,0 +1,56 @@
+name: GitHub Pages Hugo
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 0
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '0.150.0'
+          extended: true
+
+      - name: Build
+        run: |
+          hugo --minify
+          touch public/.nojekyll
+
+      - name: Debug output
+        run: |
+          echo "=== PUBLIC DIRECTORY CONTENTS ==="
+          ls -lah public/
+          echo ""
+          echo "=== INDEX.HTML CHECK ==="
+          test -f public/index.html && echo "EXISTS" || echo "MISSING"
+          test -f public/index.html && head -20 public/index.html
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
