@@ -24,6 +24,6 @@ Telegram: @killllka
 
 ---
 
-[Портфолио](/experience)
+[Портфолио](/web-portfolio/experience)
 
-[Тема 1 - GitHub](/github)
+[Тема 1 - GitHub](/web-portfolio/github)
