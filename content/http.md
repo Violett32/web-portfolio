@@ -70,3 +70,7 @@ https://www.cbr.ru/scripts/XML_dynamic.asp?date_req1=10/10/2024&date_req2=17/10/
 
 и в ответе получаю xml документ с курсами евро за эти даты
 ![XML](/web-portfolio/2_12.png)
+
+---
+
+[← Назад на главную](/web-portfolio)
